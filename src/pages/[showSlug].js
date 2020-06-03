@@ -1,17 +1,35 @@
 import React from 'react';
+import Link from "next/link";
 
-const Show = ({ showSlug }) => {
+const Show = ({ showSlug, isRewriting }) => {
     return (
-        <h1>Show {showSlug}</h1>
+        <>
+            <h1>Show {showSlug}</h1>
+            <ul>
+                <li>
+                    <Link href="/[showSlug]/[episodeSlug]" as={isRewriting ? '/episode1' : `/${showSlug}/episode1`}>
+                        <a>Episode 1</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/[showSlug]/[episodeSlug]" as={isRewriting ? '/episode2' : `/${showSlug}/episode2`}>
+                        <a>Episode 2</a>
+                    </Link>
+                </li>
+            </ul>
+            {isRewriting && <p>This request is rewrited from another domain</p>}
+        </>
     )
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, query }) {
     const { showSlug } = params
+    const { isRewriting = false } = query
 
     return {
         props: {
-            showSlug
+            showSlug,
+            isRewriting,
         }
     }
 }
