@@ -10,16 +10,14 @@ const Episode = ({ showSlug, episodeSlug, isRewriting }) => {
     )
 }
 
-export async function getServerSideProps({ params, query }) {
-    const { showSlug, episodeSlug } = params
-    const { isRewriting = false } = query
+Episode.getInitialProps = async ({ query }) => {
+    console.log('EPISODE', 'getInitialProps');
+    const { showSlug, episodeSlug, isRewriting = false } = query
 
     return {
-        props: {
-            showSlug,
-            episodeSlug,
-            isRewriting,
-        }
+        showSlug,
+        episodeSlug,
+        isRewriting,
     }
 }
 

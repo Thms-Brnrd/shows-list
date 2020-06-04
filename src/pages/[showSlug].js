@@ -25,15 +25,13 @@ const Show = ({ showSlug, isRewriting }) => {
     )
 }
 
-export async function getServerSideProps({ params, query }) {
-    const { showSlug } = params
-    const { isRewriting = false } = query
+Show.getInitialProps = async ({ query }) => {
+    console.log('SHOW', 'getInitialProps');
+    const { showSlug, isRewriting = false } = query
 
     return {
-        props: {
-            showSlug,
-            isRewriting,
-        }
+        showSlug,
+        isRewriting,
     }
 }
 
